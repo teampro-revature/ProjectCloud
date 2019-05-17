@@ -5,10 +5,7 @@
 
     createdVm=$(az vm list --query [].name | grep -E $createdVms)
      createdGroup=$(az group list --query [].name | grep -E $groupname)
-    if 
-        [
-            -z $createdVm && $createdGroup 
-        ]; then 
+    if [ -z $createdVm && $createdGroup ]; then 
             az vm create --name $VMname \
             --resource-group $groupname \
             --image UbuntuLTS \
