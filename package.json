@@ -1,0 +1,18 @@
+{
+  "name": "project2a",
+  "version": "1.0.0",
+  "description": "p2",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/teampro-revature/ProjectCloud/tree/front-end"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "shelljs": "^0.8.3"
+  }
+}

@@ -1,25 +1,26 @@
-function field_focus(field, email)
-  {
-    if(field.value == email)
-    {
-      field.value = '';
-    }
-  }
+const http = require('http');
+const express = require('express');
 
-  function field_blur(field, email)
-  {
-    if(field.value == '')
-    {
-      field.value = email;
-    }
-  }
+//const hostname = '127.0.0.1';
+//const port = 3000;
 
-//Fade in dashboard box
-$(document).ready(function(){
-    $('.box').hide().fadeIn(1000);
-    });
+const app = express();
+app.set('view engine');
 
-//Stop click event
-$('a').click(function(event){
-    event.preventDefault(); 
-	});
+app.use(express.static('./view'));
+
+app.get('/', (req, res) => res.render('./view/index.html'));
+
+/*const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('');
+});*/
+const port = process.env.PORT || 1337;
+app.listen(port);
+
+console.log("Server running at http://localhost:%d", port);
+
+/*server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});*/
