@@ -14,7 +14,7 @@ app.use(express.static('JavaScriptSPA'))
 
 // Set up our one route to the index.html file.
 app.get('*', function (req, res) {
-    res.sendFile(path.join(__dirname + '/login.html'));
+    res.sendFile(path.join(__dirname + '/createaccount.html'));
 });
 
 // Start the server.
