@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="./style.css">
-    <title>Dream Cloud</title>
+    <title>create_an_account</title>
 </head>
 
 <body>
@@ -20,13 +20,9 @@
                     </h1>
                 </div>
                 <div class = "col-sm">
-                    <form>
-                        <div class = "login">
-                            <h2>Username<input type = "text" name = "username" method="POST"></h2>
-                            <h2>Password <input type = "password" name = "password" method="POST"></h2>
-                            <h3><input type = "button" id = "login" value="Login"></h3>
-                        </div>
-                    </form>
+                    <div class = "user">
+                        <h5><a href="index.html">Home</a><h5>
+                    </div>
                 </div>
             </div>
             <div class = "cloudline"></div>
@@ -36,11 +32,17 @@
 
     <main>
         <div class = "row2">
-            <h4>To get started, please login or <br><a href="createaccount.html">create an account</a></h4>
+            <h4><a href ="main.html">Create Account</a></h4>
+            <form>
+                <h6>Username <input type = "text" name = "username" id="username" method="POST"></h6>
+                <h6>Password&nbsp <input type = "password" name = "password" id= "password" method="POST"></h6>
+                <h6>Role  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type = "text" name = "role" id="role" method="POST"></h6>
+                <h3><input type = "button" id="create" value="Submit"></h3>
+            </form>
         </div>
 
         <nav>
-                
+            
         </nav>
 
     </main>
