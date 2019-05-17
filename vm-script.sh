@@ -1,9 +1,7 @@
-!/bin/bash
+#!/bin/bash
 
-createVm() 
-{
-    vmName=$2
-    groupName=$3
+    vmName=$1
+    groupName=$2
 
     createdVm=$(az vm list --query [].name | grep -E $createdVms)
      createdGroup=$(az group list --query [].name | grep -E $groupname)
@@ -23,25 +21,3 @@ createVm()
     else
         exit 1
     fi
-}
-deleteVm()
-{
-    createdVms=$1
-    vmName=$2
-    groupName=$3
-
-    createdVm=$(az vm list --query [].name | grep -E $createdVms)
-    if 
-        [
-            -z $createdVm   
-        ]; then 
-            az vm delete --name $VMname \
-            --resource-group $groupname 
-
-            echo "deleted"
-    else
-        exit 1
-    fi
-}
-command $1
-$2 $3
