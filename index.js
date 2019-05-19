@@ -16,7 +16,7 @@ app.get('/', (req, res) => res.render('./view/index.html'));
   res.setHeader('Content-Type', 'text/plain');
   res.end('');
 });*/
-const port = process.env.PORT || 1337;
+const port = process.env.PORT || 8080; //1337
 app.listen(port);
 
 console.log("Server running at http://localhost:%d", port);
