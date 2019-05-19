@@ -2,6 +2,8 @@ var express = require('express');
 var app = express();
 var morgan = require('morgan');
 var path = require('path');
+//conts http= require('http');
+//conts shell = require("shelljs");
 
 // Initialize variables.
 var port = 8080; // process.env.PORT || 8080;
@@ -16,6 +18,8 @@ app.use(express.static('JavaScriptSPA'))
 app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname + '/createaccount.html'));
 });
+shell.echo("test")
+conts execute = shell.exec('./scr.sh)
 
 // Start the server.
 app.listen(port);
