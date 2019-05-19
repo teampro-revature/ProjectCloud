@@ -1,7 +1,7 @@
 var msalConfig = {
     auth: {
-        clientId: "f32ce23d-12b3-4106-9562-a6192cea2014",
-        authority: "https://login.microsoftonline.com/2f48ca06-554c-463f-9095-177ad842b737"
+        clientId: "790fe7cd-275f-49f5-a2fe-65470e711565",
+        authority: "https://login.microsoftonline.com/506e7f86-aa19-44de-b5e4-a31be4ed9305"
     },
     cache: {
         cacheLocation: "localStorage",
