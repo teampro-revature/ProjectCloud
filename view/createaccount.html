@@ -73,10 +73,10 @@
     
     function signIn() {
     
-        myMSALObj.loginredirect(requestObj).then(function (loginResponse) {
+        myMSALObj.loginPopUp(requestObj).then(function (loginResponse) {
             //Login Success
             showWelcomeMessage();
-            acquireTokenredirectAndCallMSGraph();
+            acquireTokenPopUpAndCallMSGraph();
         }).catch(function (error) {
             console.log(error);
         });
