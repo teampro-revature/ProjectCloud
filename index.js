@@ -2,7 +2,6 @@ const http = require('http');
 const express = require('express');
 const exec = require('child_process').exec;
 const path = require("path");
-const app = express();
 const shell = require('shelljs');
 const bodyParser = require("body-parser");
 
