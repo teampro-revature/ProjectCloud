@@ -46,8 +46,8 @@
                     var msalConfig = {
                                       
         auth: {
-            clientId: "790fe7cd-275f-49f5-a2fe-65470e711565",
-            authority: "https://login.microsoftonline.com/506e7f86-aa19-44de-b5e4-a31be4ed9305"
+            clientId: "6c82d0d3-9759-400f-be0c-804fdfb86851",
+            authority: "https://login.microsoftonline.com/e6dbdd22-d749-46e6-a277-ca99dc4a6251"
         },
         cache: {
             cacheLocation: "localStorage",
@@ -114,7 +114,7 @@
     }
     
     
-    //This function can be removed if you do not need to support IE
+    /**This function can be removed if you do not need to support IE
     function acquireTokenRedirectAndCallMSGraph() {
          //Always start with acquireTokenSilent to obtain a token in the signed in user from cache
          myMSALObj.acquireTokenSilent(requestObj).then(function (tokenResponse) {
@@ -127,7 +127,7 @@
                  myMSALObj.acquireTokenRedirect(requestObj);
              }
          });
-     }
+     }*/
     
     
     function authRedirectCallBack(error, response) {
