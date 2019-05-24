@@ -116,12 +116,21 @@
         let totalAppe = 0;
         let appeArray= [];
 
+        function errorname(){
+            $( "p.item2" ).html("<p class = 'item2' id='error'>ERROR: DUPLICATE NAME</p>");
+        }
+
+        function errorlength(){
+            $( "p.item2" ).html("<p class = 'item2' id='error'>ERROR: FIELD CANNOT BE BLANK</p>");
+        }
+
         $( "li.resourcet" ).click(function resources() {
             $( "p.titlename" ).html( "<p>Resources</p>");
             $( "p.adbuttons" ).html("<p></p>");
             $( "p.tab1name" ).html( "<p>Name</p>");
             $( "p.tab2name" ).html( "<p>Type</p>");
             $( "p.tab3name" ).html( "<p></p>");
+            $( "p.item2" ).html( "<p></p>");
                 //list items, possibly in a for loop for an array
         });
 
@@ -131,6 +140,7 @@
             $( "p.tab1name" ).html( "<p>Name</p>");
             $( "p.tab2name" ).html( "<p>Location</p>");
             $( "p.tab3name" ).html( "<p></p>");
+            $( "p.item2" ).html( "<p></p>");
                 //list items
             $("ul.item1").html("<p></p>")
             if (totalVm>0){
@@ -156,7 +166,8 @@
                                 //check if duplicate
                                 if(typedvm == vmArray[i]){
                                     console.log("this is named the same as another vm");
-                                    errorvmname();
+                                    errorname();
+                                    return;
                                 }
                             }
                             totalVm++;
@@ -179,7 +190,8 @@
                         }
                     }
                     else{
-                        errorvmlength();
+                        errorlength();
+                        return;
                     }
                 });
                 $("button.backbutton").click(function(){
@@ -202,7 +214,6 @@
                     vm();
                 });
             });
-
         });
 
         $( "li.dbt" ).click(function databases() {
@@ -211,6 +222,7 @@
             $( "p.tab1name" ).html( "<p>Name</p>");
             $( "p.tab2name" ).html( "<p>Server</p>");
             $( "p.tab3name" ).html( "<p></p>");
+            $( "p.item2" ).html( "<p></p>");
             //list items
             $("ul.item1").html("<p></p>")
             if (totalDb>0){
@@ -237,7 +249,8 @@
                                 //check if duplicate
                                 if(typeddb == dbArray[i]){
                                     console.log("this is named the same as another db");
-                                    errordbname();
+                                    errorname();
+                                    return;
                                 }
                             }
                             totalDb++;
@@ -260,7 +273,8 @@
                         }
                     }
                     else{
-                        errordblength();
+                        errorlength();
+                        return;
                     }
                 });
                 $("button.backbutton").click(function(){
@@ -293,6 +307,7 @@
             $( "p.tab1name" ).html( "<p>Name</p>");
             $( "p.tab2name" ).html( "<p>Location</p>");
             $( "p.tab3name" ).html( "<p></p>");
+            $( "p.item2" ).html( "<p></p>");
                 //list items
             $("ul.item1").html("<p></p>")
             if (totalBs>0){
@@ -318,7 +333,8 @@
                                 //check if duplicate
                                 if(typedbs == bsArray[i]){
                                     console.log("this is named the same as another bs");
-                                    errorbsname();
+                                    errorname();
+                                    return;
                                 }
                             }
                             totalBs++;
@@ -341,7 +357,8 @@
                         }
                     }
                     else{
-                        errorbslength();
+                        errorlength();
+                        return;
                     }
                 });
                 $("button.backbutton").click(function(){
@@ -375,6 +392,7 @@
             $( "p.tab2name" ).html( "<p>Subnets</p>");
             $( "p.tab3name" ).html( "<p>Security Groups</p>");
             $("ul.item1").html("<p></p>")
+            $( "p.item2" ).html( "<p></p>");
                 //list items
             if (totalVn>0){
                 for (i=0;i<totalVn;i++)
@@ -400,7 +418,8 @@
                                 //check if duplicate
                                 if(typedvn == vnArray[i]){
                                     console.log("this is named the same as another vn");
-                                    errorvnname();
+                                    errorname();
+                                    return;
                                 }
                             }
                             totalVn++;
@@ -423,7 +442,8 @@
                         }
                     }
                     else{
-                        errorvnlength();
+                        errorlength();
+                        return;
                     }
                 });
 
@@ -458,6 +478,7 @@
             $( "p.tab1name" ).html( "<p>Name</p>");
             $( "p.tab2name" ).html( "<p>Service Plan</p>");
             $( "p.tab3name" ).html( "<p>Location</p>");
+            $( "p.item2" ).html( "<p></p>");
                 //list items
             $("ul.item1").html("<p></p>")
             if (totalAppe>0){
@@ -484,7 +505,8 @@
                                 //check if duplicate
                                 if(typedappe == appeArray[i]){
                                     console.log("this is named the same as another appe");
-                                    errorappename();
+                                    errorname();
+                                    return;
                                 }
                             }
                             totalAppe++;
@@ -507,7 +529,8 @@
                         }
                     }
                     else{
-                        errorappelength();
+                        errorlength();
+                        return;
                     }
                 });
                 $("button.backbutton").click(function(){
