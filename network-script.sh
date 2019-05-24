@@ -5,7 +5,7 @@ MyVnet=$2
 MySubnet=$3
 MyNsg=$4
 
-createdVnet=$(az network vnet list -g $groupname
+createdVnet=$(az network vnet list --query [].name | grep -E $MyVnet)
 az network vnet create -g $MyResourceGroup -n $MyVnet --address-prefix 10.0.0.0/24 
                             
 
