@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="./style.css">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <title>Dream Cloud</title>
 </head>
 
@@ -95,13 +96,13 @@
     
     
     function showWelcomeMessage() {
-        var divWelcome = document.getElementById('WelcomeMessage');
-        divWelcome.innerHTML = 'Welcome ' + myMSALObj.getAccount().userName + "to Microsoft Graph API";
+        //var divWelcome = document.getElementById('WelcomeMessage');
+        //divWelcome.innerHTML = 'Welcome ' + myMSALObj.getAccount().userName + "to Microsoft Graph API";
         var loginbutton = document.getElementById('SignIn');
         loginbutton.innerHTML = 'Sign Out';
         loginbutton.setAttribute('onclick', 'signOut();');
         // PUT NEW CODE HERE TO SHOW MAIN.HTML
-        window.location.replace("https://appsaturday.azurewebsites.net/");
+        window.location.replace("https://rgsa.azurewebsites.net/main.html");
 
     }
     
