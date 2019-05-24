@@ -40,7 +40,7 @@
     <main>
         <div class = "row">
             <div class = "col-2.5">
-                <ul>
+                <ul class = "side">
                     <button id = "tabbutton"><li class ="resourcet">Resources</li></button>
                     <br>
                     <button id = "tabbutton"><li class="vmt">Virtual Machines</li></button>
@@ -72,10 +72,10 @@
                         </div>
                     </div>
                 </nav>
-                <nav id="cont_b">
+                <nav id="cont_b" class = "cont_b">
                     <div class = "row">
                         <div class="col-4">
-                           <p class = "item1"></p>
+                           <ul id = "item1" class = "item1"></ul>
                         </div>
                         <div class="col-4">
                            <p class = "item2"></p>
@@ -103,10 +103,20 @@
     </footer>
 
     <script>
-        let totalItems=0;
+        let totalItems=0;  //all of this will be changed to linkage of storage for account
         let totalArray=[];
-        
-        $( "li.resourcet" ).click(function() {
+        let totalVm = 0;
+        let vmArray= [];
+        let totalDb= 0;
+        let dbArray= [];
+        let totalBs= 0;
+        let bsArray= [];
+        let totalVn= 0;
+        let vnArray= [];
+        let totalAppe = 0;
+        let appeArray= [];
+
+        $( "li.resourcet" ).click(function resources() {
             $( "p.titlename" ).html( "<p>Resources</p>");
             $( "p.adbuttons" ).html("<p></p>");
             $( "p.tab1name" ).html( "<p>Name</p>");
@@ -115,103 +125,412 @@
                 //list items, possibly in a for loop for an array
         });
 
-        $( "li.vmt" ).click(function() {
+        $( "li.vmt" ).click(function vm() {
             $( "p.titlename" ).html( "<p>Virtual Machines</p>");
             $( "p.adbuttons" ).html("<button id = 'add' class='addbut'>+Add</button> <button id = 'add' class='delbut'>-Delete</button>");
             $( "p.tab1name" ).html( "<p>Name</p>");
             $( "p.tab2name" ).html( "<p>Location</p>");
             $( "p.tab3name" ).html( "<p></p>");
                 //list items
+            $("ul.item1").html("<p></p>")
+            if (totalVm>0){
+                for (i=0;i<totalVm;i++)
+                   $("ul.item1").append($("<li class = items>").text(vmArray[i]));
+            }
+            else{
+                $("ul.item1").html("<p></p>")
+            };
 
             $("button.addbut").click(function(){
-                $( "button.addbut" ).html("<p id ='add2'>+Add</p>");
-                //show adding options,form with options and submit
-                // remove list of items
+                $( "p.adbuttons" ).html("<button id = 'add' class='backbutton'>Back</button>");
+                $( "p.tab1name").html("<form><p>Name<input type = 'text' name = 'vmname' id= 'addvmname'></p></form><br><button input type = 'submit' id = 'add2' class='create'>Create</button>");
+                //need to figure out how to add this to list
+                $( "p.tab2name" ).html( "<p></p>");
+                $( "ul.item1").html("<p></p>");
+
+                $("button.create").click(function(){
+                    let typedvm = $('#addvmname').val();
+                    if (typedvm.length != 0){
+                        if (totalVm != 0){
+                            for (i=0;i<totalVm;i++){
+                                //check if duplicate
+                                if(typedvm == vmArray[i]){
+                                    console.log("this is named the same as another vm");
+                                    errorvmname();
+                                }
+                            }
+                            totalVm++;
+                            totalItems++;
+                            vmArray.push(typedvm);
+                            totalArray.push(typedvm);
+                            console.log("newly created vm is: "+typedvm);
+                            console.log("number of total vm is now: "+totalVm);
+                            vm();
+                        }
+                        else{
+                            totalVm++;
+                            totalItems++;
+                            vmArray.push(typedvm);
+                            totalArray.push(typedvm);
+                            console.log("newly created vm is: "+typedvm);
+                            console.log("number of total vm is now: "+totalVm);
+                            //add item to list, run script
+                            vm();
+                        }
+                    }
+                    else{
+                        errorvmlength();
+                    }
+                });
+                $("button.backbutton").click(function(){
+                    vm();
+                });
             });
 
             $("button.delbut").click(function(){
-                $( "button.delbut" ).html("<p id ='add2'>-Delete</p>");
+                $( "p.adbuttons" ).html("<button id = 'add' class='backbutton'>Back</button>");
+                $( "p.tab1name").html("<form><p>Choose a Virtual Machine</p><select><option value='vms'>vm1</option></select><br><br><button input type = 'submit' id = 'add2' class='delete'>Delete</button></form>");
+                //need to figure out how to link all vms created to this dropdown list
+                $( "p.tab2name" ).html( "<p></p>");
+                $( "ul.item1").html("<p></p>");
                 //show deleting options, dropdown or checkbox on a list?
+                $("button.delete").click(function(){
+                    //remove item from list, run script
+                    vm();
+                });
+                $("button.backbutton").click(function(){
+                    vm();
+                });
             });
 
         });
 
-        $( "li.dbt" ).click(function() {
+        $( "li.dbt" ).click(function databases() {
             $( "p.titlename" ).html( "<p>Databases(SQL)</p>");
             $( "p.adbuttons" ).html("<button id = 'add' class='addbut'>+Add</button> <button id = 'add' class='delbut'>-Delete</button>");
             $( "p.tab1name" ).html( "<p>Name</p>");
             $( "p.tab2name" ).html( "<p>Server</p>");
             $( "p.tab3name" ).html( "<p></p>");
-                //list items
+            //list items
+            $("ul.item1").html("<p></p>")
+            if (totalDb>0){
+                for (i=0;i<totalDb;i++)
+                   $("ul.item1").append($("<li class = items>").text(dbArray[i]));
+            }
+            else{
+                $("ul.item1").html("<p></p>")
+            };
 
             $("button.addbut").click(function(){
-                $( "button.addbut" ).html("<p id ='add2'>+Add</p>");
-                //show adding options
+                $( "p.adbuttons" ).html("<button id = 'add' class='backbutton'>Back</button>");
+                $( "p.tab1name").html("<form><p>Name<input type = 'text' name = 'dbname' id= 'adddbname'></p></form><br><button input type = 'submit' id = 'add2' class='create'>Create</button>");
+                //need to figure out how to add this to list
+                $( "p.tab2name" ).html( "<p></p>");
+                $( "ul.item1").html("<p></p>");
+                
+
+                $("button.create").click(function(){
+                    let typeddb = $('#adddbname').val();
+                    if (typeddb.length != 0){
+                        if (totalDb != 0){
+                            for (i=0;i<totalDb;i++){
+                                //check if duplicate
+                                if(typeddb == dbArray[i]){
+                                    console.log("this is named the same as another db");
+                                    errordbname();
+                                }
+                            }
+                            totalDb++;
+                            totalItems++;
+                            dbArray.push(typeddb);
+                            totalArray.push(typeddb);
+                            console.log("newly created db is: "+typeddb);
+                            console.log("number of total db is now: "+totalDb);
+                            databases();
+                        }
+                        else{
+                            totalDb++;
+                            totalItems++;
+                            dbArray.push(typeddb);
+                            totalArray.push(typeddb);
+                            console.log("newly created db is: "+typeddb);
+                            console.log("number of total db is now: "+totalDb);
+                            //add item to list, run script
+                            databases();
+                        }
+                    }
+                    else{
+                        errordblength();
+                    }
+                });
+                $("button.backbutton").click(function(){
+                    databases();
+                });
             });
             
+            
             $("button.delbut").click(function(){
-                $( "button.delbut" ).html("<p id ='add2'>-Delete</p>");
-                //show deleting options
+                $( "p.adbuttons" ).html("<button id = 'add' class='backbutton'>Back</button>");
+                $( "p.tab1name").html("<form><p>Choose a Database(SQL)</p><select><option value='dbs'>db1</option></select><br><br><button input type = 'submit' id = 'add2' class='delete'>Delete</button></form>");
+                //need to figure out how to link all vms created to this dropdown list
+                $( "p.tab2name" ).html( "<p></p>");
+                $( "ul.item1").html("<p></p>");
+                //show deleting options, dropdown or checkbox on a list?
+                $("button.delete").click(function(){
+                    //remove item from list, run script
+                    databases();
+                });
+                $("button.backbutton").click(function(){
+                    databases();
+                });
             });
 
         });
 
-        $( "li.bst" ).click(function() {
+        $( "li.bst" ).click(function storage() {
             $( "p.titlename" ).html( "<p>Blob Storages</p>");
             $( "p.adbuttons" ).html("<button id = 'add' class='addbut'>+Add</button> <button id = 'add' class='delbut'>-Delete</button>");
             $( "p.tab1name" ).html( "<p>Name</p>");
             $( "p.tab2name" ).html( "<p>Location</p>");
             $( "p.tab3name" ).html( "<p></p>");
                 //list items
+            $("ul.item1").html("<p></p>")
+            if (totalBs>0){
+                for (i=0;i<totalBs;i++)
+                   $("ul.item1").append($("<li class = items>").text(bsArray[i]));
+            }
+            else{
+                $("ul.item1").html("<p></p>")
+            };
 
             $("button.addbut").click(function(){
-                $( "button.addbut" ).html("<p id ='add2'>+Add</p>");
-                //show adding options
-            });
+                $( "p.adbuttons" ).html("<button id = 'add' class='backbutton'>Back</button>");
+                $( "p.tab1name").html("<form><p>Name<input type = 'text' name = 'bsname' id= 'addbsname'></p></form><br><button input type = 'submit' id = 'add2' class='create'>Create</button>");
+                //need to figure out how to add this to list
+                $( "p.tab2name" ).html( "<p></p>");
+                $( "ul.item1").html("<p></p>");
 
+                $("button.create").click(function(){
+                    let typedbs = $('#addbsname').val();
+                    if (typedbs.length != 0){
+                        if (totalBs != 0){
+                            for (i=0;i<totalBs;i++){
+                                //check if duplicate
+                                if(typedbs == bsArray[i]){
+                                    console.log("this is named the same as another bs");
+                                    errorbsname();
+                                }
+                            }
+                            totalBs++;
+                            totalItems++;
+                            bsArray.push(typedbs);
+                            totalArray.push(typedbs)
+                            console.log("newly created bs is: "+typedbs);
+                            console.log("number of total bs is now: "+totalBs);
+                            storage();
+                        }
+                        else{
+                            totalBs++;
+                            totalItems++;
+                            bsArray.push(typedbs);
+                            totalArray.push(typedbs);
+                            console.log("newly created bs is: "+typedbs);
+                            console.log("number of total bs is now: "+totalBs);
+                            //add item to list, run script
+                            storage();
+                        }
+                    }
+                    else{
+                        errorbslength();
+                    }
+                });
+                $("button.backbutton").click(function(){
+                    storage();
+                });
+            });
+            
+            
             $("button.delbut").click(function(){
-                $( "button.delbut" ).html("<p id ='add2'>-Delete</p>");
-                //show adding options
+                $( "p.adbuttons" ).html("<button id = 'add' class='backbutton'>Back</button>");
+                $( "p.tab1name").html("<form><p>Choose a Blob Storage</p><select><option value='bss'>bs1</option></select><br><br><button input type = 'submit' id = 'add2' class='delete'>Delete</button></form>");
+                //need to figure out how to link all vms created to this dropdown list
+                $( "p.tab2name" ).html("<p></p>");
+                $( "ul.item1").html("<p></p>");
+                //show deleting options, dropdown or checkbox on a list?
+                $("button.delete").click(function(){
+                    //remove item from list, run script
+                    storage();
+                });
+                $("button.backbutton").click(function(){
+                    storage();
+                });
             });
 
         });
 
-        $( "li.vnt" ).click(function() {
+        $( "li.vnt" ).click(function vn() {
             $( "p.titlename" ).html( "<p>Virtual Networks</p>");
             $( "p.adbuttons" ).html("<button id = 'add' class='addbut'>+Add</button> <button id = 'add' class='delbut'>-Delete</button>");
             $( "p.tab1name" ).html( "<p>Name</p>");
             $( "p.tab2name" ).html( "<p>Subnets</p>");
             $( "p.tab3name" ).html( "<p>Security Groups</p>");
+            $("ul.item1").html("<p></p>")
                 //list items
+            if (totalVn>0){
+                for (i=0;i<totalVn;i++)
+                   $("ul.item1").append($("<li class = items>").text(vnArray[i]));
+            }
+            else{
+                $("ul.item1").html("<p></p>")
+            };
 
             $("button.addbut").click(function(){
-                $( "button.addbut" ).html("<p id ='add2'>+Add</p>");
-                //show adding options
-            });
+                $( "p.adbuttons" ).html("<button id = 'add' class='backbutton'>Back</button>");
+                $( "p.tab1name").html("<form><p>Name<input type = 'text' name = 'vnname' id= 'addvnname'></p></form><br><button input type = 'submit' id = 'add2' class='create'>Create</button>");
+                //need to figure out how to add this to list
+                $( "p.tab2name" ).html( "<p></p>");
+                $( "p.tab3name" ).html( "<p></p>");
+                $( "ul.item1").html("<p></p>");
 
+                $("button.create").click(function(){
+                    let typedvn = $('#addvnname').val();
+                    if (typedvn.length != 0){
+                        if (totalVn != 0){
+                            for (i=0;i<totalVn;i++){
+                                //check if duplicate
+                                if(typedvn == vnArray[i]){
+                                    console.log("this is named the same as another vn");
+                                    errorvnname();
+                                }
+                            }
+                            totalVn++;
+                            totalItems++;
+                            vnArray.push(typedvn);
+                            totalArray.push(typedvn);
+                            console.log("newly created vn is: "+typedvn);
+                            console.log("number of total vn is now: "+totalVn);
+                            vn();
+                        }
+                        else{
+                            totalVn++;
+                            totalItems++;
+                            vnArray.push(typedvn);
+                            totalArray.push(typedvn);
+                            console.log("newly created vn is: "+typedvn);
+                            console.log("number of total vn is now: "+totalVn);
+                            //add item to list, run script
+                            vn();
+                        }
+                    }
+                    else{
+                        errorvnlength();
+                    }
+                });
+
+                $("button.backbutton").click(function(){
+                    vn();
+                });
+            });
+            
+            
             $("button.delbut").click(function(){
-                $( "button.delbut" ).html("<p id ='add2'>-Delete</p>");
-                //show deleting options
+                $( "p.adbuttons" ).html("<button id = 'add' class='backbutton'>Back</button>");
+                $( "p.tab1name").html("<form><p>Choose a Virtual Network</p><select><option value='vns'>vn1</option></select><br><br><button input type = 'submit' id = 'add2' class='delete'>Delete</button></form>");
+                //need to figure out how to link all vms created to this dropdown list
+                $( "p.tab2name" ).html("<p></p>");
+                $( "p.tab3name" ).html( "<p></p>");
+                $( "ul.item1").html("<p></p>");
+                //show deleting options, dropdown or checkbox on a list?
+                $("button.delete").click(function(){
+                    //remove item from list, run script
+                    vn();
+                });
+                $("button.backbutton").click(function(){
+                    vn();
+                });
             });
 
         });
 
-        $( "li.apet" ).click(function() {
+        $( "li.apet" ).click(function appe() {
             $( "p.titlename" ).html( "<p>App Environments</p>");
             $( "p.adbuttons" ).html("<button id = 'add' class='addbut'>+Add</button> <button id = 'add' class='delbut'>-Delete</button>");
             $( "p.tab1name" ).html( "<p>Name</p>");
             $( "p.tab2name" ).html( "<p>Service Plan</p>");
             $( "p.tab3name" ).html( "<p>Location</p>");
                 //list items
+            $("ul.item1").html("<p></p>")
+            if (totalAppe>0){
+                for (i=0;i<totalAppe;i++)
+                   $("ul.item1").append($("<li class = items>").text(appeArray[i]));
+            }
+            else{
+                $("ul.item1").html("<p></p>")
+            };
 
             $("button.addbut").click(function(){
-                $( "button.addbut" ).html("<p id ='add2'>+Add</p>");
-                //show adding options
-            });
+                $( "p.adbuttons" ).html("<button id = 'add' class='backbutton'>Back</button>");
+                $( "p.tab1name").html("<form><p>Name<input type = 'text' name = 'appename' id= 'addappename'></p></form><br><button input type = 'submit' id = 'add2' class='create'>Create</button>");
+                //need to figure out how to add this to list
+                $( "p.tab2name" ).html( "<p></p>");
+                $( "p.tab3name" ).html( "<p></p>");
+                $( "ul.item1").html("<p></p>");
 
+                $("button.create").click(function(){
+                    let typedappe = $('#addappename').val();
+                    if (typedappe.length != 0){
+                        if (totalAppe != 0){
+                            for (i=0;i<totalAppe;i++){
+                                //check if duplicate
+                                if(typedappe == appeArray[i]){
+                                    console.log("this is named the same as another appe");
+                                    errorappename();
+                                }
+                            }
+                            totalAppe++;
+                            totalItems++;
+                            appeArray.push(typedappe);
+                            totalArray.push(typedappe);
+                            console.log("newly created appe is: "+typedappe);
+                            console.log("number of total appe is now: "+totalAppe);
+                            appe();
+                        }
+                        else{
+                            totalAppe++;
+                            totalItems++;
+                            appeArray.push(typedappe);
+                            totalArray.push(typedappe);
+                            console.log("newly created appe is: "+typedappe);
+                            console.log("number of total appe is now: "+totalAppe);
+                            //add item to list, run script
+                            appe();
+                        }
+                    }
+                    else{
+                        errorappelength();
+                    }
+                });
+                $("button.backbutton").click(function(){
+                    appe();
+                });
+            });
+            
+            
             $("button.delbut").click(function(){
-                $( "button.delbut" ).html("<p id='add2'>-Delete</p>");
-                //show adding options
+                $( "p.adbuttons" ).html("<button id = 'add' class='backbutton'>Back</button>");
+                $( "p.tab1name").html("<form><p>Choose an App Environment</p><select><option value='appes'>appe1</option></select><br><br><button input type = 'submit' id = 'add2' class='delete'>Delete</button></form>");
+                //need to figure out how to link all vms created to this dropdown list
+                $( "p.tab2name" ).html("<p></p>");
+                $( "p.tab3name" ).html( "<p></p>");
+                $( "ul.item1").html("<p></p>");
+                //show deleting options, dropdown or checkbox on a list?
+                $("button.delete").click(function(){
+                    //remove item from list, run script
+                    appe();
+                });
+                $("button.backbutton").click(function(){
+                    appe();
+                });
             });
 
         });
