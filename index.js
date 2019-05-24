@@ -11,7 +11,7 @@ const app = express();
 
 app.set('view engine');
 
-app.use(express.static(__dirname + '/view'));
+app.use(express.static(__dirname + '/5-21front'));
 
 app.use(bodyParser.urlencoded({
   extended: false
@@ -27,9 +27,9 @@ app.get('/',function(req,res) {
   res.sendFile(path.join(__dirname + 'main.html'));
 });
 
-app.get('/',function(req,res) {
+/*app.get('/',function(req,res) {
   res.sendFile(path.join(__dirname + 'createaccount.html'));
-});
+});*/
 
 /*app.post('/',function(request, response) {
   console.log(request.body);
