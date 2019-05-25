@@ -215,4 +215,5 @@ li a:hover:not(.active) {
     color:red;
     text-decoration: underline;
     font-size: 1.2em;
+    margin-left: 20px;
 }
