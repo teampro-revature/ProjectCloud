@@ -16,22 +16,49 @@
       padding: 2px;
     }
   </style>
+  <link rel="stylesheet" type="text/css" href="./style.css">
 </head>
 
-<body>
+
+        
+
+<body> 
+   <header>
+        <div class = "container-fluid">
+            <div class = "row">
+                <div class = "col-8">
+                    <h1>Welcome to
+                        <br>
+                        Dream Cloud
+                    </h1>
+                </div>
+            </div>
+            <div class = "cloudline"></div>
+        </div>
+    </header>
   <!-- bluebird only needed if this page needs to run on Internet Explorer -->
   <!-- msal.min.js can be used in the place of msal.js; included msal.js to make debug easy -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.4/bluebird.min.js" class="pre"></script>
   <script src="https://secure.aadcdn.microsoftonline-p.com/lib/1.0.0/js/msal.js"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.min.js" class="pre"></script>
 
-  <h2>Getting an access token with Azure AD B2C and calling a Web API</h2>
-  <div>
-    <div id="label">Sign-in with Microsoft Azure AD B2C</div>
-    <button id="auth" onclick="login()">Login</button>
-    <button id="callApiButton" class="hidden" onclick="callApi()">Call Web API</button>
-  </div>
+    <main>
+        <div class = "row2">
+            <h4>To get started, please <button id="auth" onclick="login()">log in</button>
+                <pre id="json"></pre> or 
+                <button id="callApiButton" class="hidden" onclick="parent.location='main.html'">welcome</button>
+        </div>
+    </main
 
+  <pre class="response"></pre>
+
+  <script class="pre">
+    // The current application coordinates were pre-registered in a B2C tenant.
+    var appConfig = {
+      b2cScopes: ["https://fabrikamb2c.onmicrosoft.com/helloapi/demo.read"],
+      webApi: "https://fabrikamb2chello.azurewebsites.net/hello"
+    };
+  </script>
   <pre class="response"></pre>
 
   <script class="pre">
@@ -67,17 +94,22 @@
           scopes: appConfig.b2cScopes
         };
         clientApplication.acquireTokenSilent(tokenRequest).then(function (tokenResponse) {
-          updateUI();
+                      var callWebApiButton = document.getElementById('callApiButton');
+             callWebApiButton.setAttribute('class', 'visible');
+             updateUI();             
+
         }).catch(function (error) {
           clientApplication.acquireTokenPopup(tokenRequest).then(function (tokenResponse) {
-            updateUI();
+            updateUI();     
+
           }).catch (function (error) {
             logMessage("Error acquiring the popup:\n" + error);
           });
         })
       }).catch (function (error) {
         logMessage("Error during login:\n" + error);
-      });
+      });     
+      
     }
     function updateUI() {
       var userName = clientApplication.getAccount().name;
@@ -88,8 +120,7 @@
       authButton.setAttribute('onclick', 'logout();');
       var label = document.getElementById('label');
       label.innerText = "Hello " + userName;
-      var callWebApiButton = document.getElementById('callApiButton');
-      callWebApiButton.setAttribute('class', 'visible');
+
     }
     function callApi() {
       var tokenRequest = {
@@ -128,6 +159,7 @@
       document.body.querySelector('.response').appendChild(document.createTextNode('\n' + s));
     }
   </script>
+  <script src="./server.js"></script>
 </body>
 
 </html>
