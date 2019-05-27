@@ -1,4 +1,4 @@
-                                           NODE.JS APPLICTION FOR CLOUD SERVICE BUILT ON AZURE
+                                         NODE.JS APPLICTION FOR CLOUD SERVICE BUILT ON AZURE
  
 PROJECT TITLE:  ProjectCloud
 
