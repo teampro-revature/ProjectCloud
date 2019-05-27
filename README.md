@@ -1,8 +1,10 @@
                                          NODE.JS APPLICTION FOR CLOUD SERVICE BUILT ON AZURE
  
-PROJECT TITLE:  ProjectCloud
+PROJECT TITLE:  
+ProjectCloud
 
-APPLICATION NAME: DreamCloud
+APPLICATION NAME: 
+DreamCloud
  
 SUMMARY:
 We have developed a node.js application similar to the Cloud Service Providers like Microsoft Azure, Google Cloud. Through this application only authenticated user could sign in, create and delete resources like Resource Group, App Service Environment, Virtual Machine, SQL Database,  Blob Storage and Virtual Network.
