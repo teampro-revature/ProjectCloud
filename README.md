@@ -1,9 +1,9 @@
-                                         NODE.JS APPLICTION FOR CLOUD SERVICE BUILT ON AZURE
+                                       NODE.JS APPLICTION FOR CLOUD SERVICE BUILT ON AZURE
  
 PROJECT TITLE:  
 ProjectCloud
 
-APPLICATION NAME: 
+APPLICATION NAME:
 DreamCloud
  
 SUMMARY:
