@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <title>Dream Cloud</title>
+</head>
+
+<body>
+    <header>
+        <div class = "container-fluid">
+            <div class = "row">
+                <div class = "col-8">
+                    <h1>Welcome to
+                        <br>
+                        Dream Cloud
+                    </h1>
+                </div>
+                <div class = "col-sm">
+                    <div class = "user">
+                        
+                            <h5>Username
+                            <br>
+                            Role
+                            <br>
+                            <a href="/">Signout</a><h5>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class = "cloudline"></div>
+        </div>
+    </header>
+        
+
+    <main>
+        <div class = "row">
+            <div class = "col-2.5">
+                <ul class = "side">
+                    <button id = "tabbutton"><li class ="resourcet">Resources</li></button>
+                    <br>
+                    <button id = "tabbutton"><li class="vmt">Virtual Machines</li></button>
+                    <br>
+                    <button id = "tabbutton"><li class="dbt">Databases(SQL)</li></button>
+                    <br>
+                    <button id = "tabbutton"><li class="bst">Blob Storage</li></button>
+                    <br>
+                    <button id = "tabbutton"><li class="vnt">Virtual Networks</li></button>
+                    <br>
+                    <button id = "tabbutton"><li class="apet">App Environments</li></button>
+                </ul>
+            </div>
+            <div class = "col-7">
+                <nav id="main">
+                    <p id="titlebox" class="titlename">Delete a Database(SQL)</p>
+                    <p class = "adbuttons"><a href = "/main"><button id = 'add' class='backbutton'>Back</button></a></p>
+                </nav>
+                <nav id="cont_r">
+                    <div class="row">
+                        <div class="col-4">
+                            <p class = "tab1name">
+                            <form method= 'POST' action="/dbdelete" class = "form1">
+                                <p>Choose a Database(SQL)</p>
+                                    <select id = 'alldbs'>
+                                        <option val = 'first'>Select</option>
+                                    </select>
+                                    <br><br>
+                                    <button input type = 'submit' id = 'add2' class='delete'>Delete</button>
+                            </form>
+                            </p>
+                        </div>
+                        <div class="col-4">
+                            <p class = "tab2name"></p>
+                        </div>
+                        <div class="col-4">
+                            <p class = "tab3name"></p>
+                        </div>
+                    </div>
+                </nav>
+                <nav id="cont_b" class = "cont_b">
+                    <div class = "row">
+                        <div class="col-4">
+                           <ul id = "item1" class = "item1"></ul>
+                        </div>
+                        <div class="col-4">
+                           <p class = "item2"></p>
+                        </div>
+                        <div class="col-4">
+                           <p class = "item3"></p>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <nav>
+                
+        </nav>
+
+    </main>
+            
+    <footer>
+
+        <nav>
+
+        </nav>
+
+    </footer>
+
+    <script>
+        //figure out the location tabs etc, need to figure out username role signout
+        // the only way to run scripts is through routes
+        let totalItems=0;  //all of this will be changed to linkage(scripts) of storage for account
+        let totalArray=[];
+        let totalVm = 0;
+        let vmArray= [];
+        let totalDb= 0;
+        let dbArray= [];
+        let totalBs= 0;
+        let bsArray= [];
+        let totalVn= 0;
+        let vnArray= [];
+        let totalAppe = 0;
+        let appeArray= [];
+        
+
+        function errorname(){
+            $( "p.item2" ).html("<p class = 'item2' id='error'>ERROR: DUPLICATE NAME</p>");
+        }
+
+        function errorblank(){
+            $( "p.item2" ).html("<p class = 'item2' id='error'>ERROR: FIELD CANNOT BE BLANK</p>");
+        }
+
+        function errornone(){
+            $( "p.item2" ).html("<p class = 'item2' id='error'>ERROR: NO ELEMENT SELECTED</p>");
+        }
+
+        function errorlength(){
+            $( "p.item2" ).html("<p class = 'item2' id='error'>ERROR: TOO MANY CHARACTERS</p>");
+        }
+
+        $( "li.resourcet" ).click(function resources() {
+            $( "p.titlename" ).html( "<p>Resources</p>");
+            $( "p.adbuttons" ).html("<p></p>");
+            $( "p.tab1name" ).html( "<p>Name</p>");
+            $( "p.tab2name" ).html( "<p>Type</p>");
+            $( "p.tab3name" ).html( "<p></p>");
+            $( "p.item2" ).html( "<p></p>");
+            $("ul.item1").html("<p></p>")
+            $( "form.form1").html("<p></p>");
+            if (totalItems>0){
+                for (i=0;i<totalItems;i++)
+                $("ul.item1").append($("<li class = items>").text(totalArray[i]));
+            }
+            else{
+                $("ul.item1").html("<p></p>")
+            };
+        });
+
+        $( "li.vmt" ).click(function vm() {
+            $( "p.titlename" ).html( "<p>Virtual Machines</p>");
+            $( "p.adbuttons" ).html("<a href = 'vmcreate.html'><button id = 'add' class='addbut'>+Add</button></a> <a href = 'vmdelete.html'><button id = 'add' class='delbut'>-Delete</button></a>");
+            $( "p.tab1name" ).html( "<p>Name</p>");
+            $( "p.tab2name" ).html( "<p>Location</p>");
+            $( "p.tab3name" ).html( "<p></p>");
+            $( "p.item2" ).html( "<p></p>");
+            $("ul.item1").html("<p></p>")
+            $( "form.form1").html("<p></p>");
+
+            if (totalVm>0){
+                for (i=0;i<totalVm;i++)
+                   $("ul.item1").append($("<li class = items>").text(vmArray[i]));
+            }
+            else{
+                $("ul.item1").html("<p></p>")
+            };
+
+            $("button.addbut").click(function(){
+                $( "p.adbuttons" ).html("<button id = 'add' class='backbutton'>Back</button>");
+                $( "p.tab1name").html("<form method= 'POST'><p>Name<input type = 'text' name = 'vmname' id= 'addvmname'></p><a href = 'vmcreate.html'><button input type = 'button' id = 'add2' class='create'>Create</button></a></form><br>");
+                $( "p.tab2name" ).html( "<p></p>");
+                $( "ul.item1").html("<p></p>");
+
+                $("button.create").click(function(){
+                    let typedvm = $('#addvmname').val();
+                    if (typedvm.length != 0 && typedvm.length <= 12){
+                        if (totalVm != 0){
+                            for (i=0;i<totalVm;i++){
+                                //check if duplicate
+                                if(typedvm == vmArray[i]){
+                                    console.log("this is named the same as another vm");
+                                    errorname();
+                                    return;
+                                }
+                            }
+                            totalVm++;
+                            totalItems++;
+                            vmArray.push(typedvm);
+                            totalArray.push(typedvm);
+                            console.log("newly created vm is: "+typedvm);
+                            console.log("number of total vm is now: "+totalVm);
+                            // run script
+                            vm();
+                        }
+                        else{
+                            totalVm++;
+                            totalItems++;
+                            vmArray.push(typedvm);
+                            totalArray.push(typedvm);
+                            console.log("newly created vm is: "+typedvm);
+                            console.log("number of total vm is now: "+totalVm);
+                            //run script
+                            vm();
+                        }
+                    }
+                    else if(typedvm.length > 12){
+                        errorlength();
+                    }
+                    else{
+                        errorblank();
+                        return;
+                    }
+                });
+                $("button.backbutton").click(function(){
+                    vm();
+                });
+            });
+
+            $("button.delbut").click(function(){
+                $( "p.adbuttons" ).html("<button id = 'add' class='backbutton'>Back</button>");
+                $( "p.tab1name").html("<form><p>Choose a Virtual Machine</p><select id = 'allvms'><option val = 'first'>Select</option></select></form><br><br><button input type = 'submit' id = 'add2' class='delete'>Delete</button>");
+                $( "p.tab2name" ).html( "<p></p>");
+                $( "ul.item1").html("<p></p>");
+                $("vms").html(vmArray);
+                var vms1 = $('#allvms');
+                $.each(vmArray, function(val, text) {
+                    vms1.append($('<option></option>').val(val).html(text));
+                });
+
+                var select = ($("#allvms option:first").text());
+                var selector = $('#allvms').find(":selected").val();
+
+                $("button.delete").click(function(){
+                    selector = $('#allvms').find(":selected").val();
+                    if (selector == select){
+                        console.log("None selected");
+                        errornone();
+                        return;
+                    }
+                    else{
+                        console.log($('#allvms option:selected').val());
+                        console.log($('#allvms option:selected').text());
+                        totalVm--;
+                        totalItems--;
+                        var indexedVm = vmArray.indexOf(($('#allvms option:selected').text()));
+                        vmArray.splice(indexedVm);
+                        var indexedTotal = totalArray.indexOf(($('#allvms option:selected').text()));
+                        totalArray.splice(indexedVm);
+                        console.log("deleted vm is: "+($('#allvms option:selected').text()));
+                        console.log("number of total vm is now: "+totalVm);
+                        //run script
+                        vm();
+                    }
+                });
+                $("button.backbutton").click(function(){
+                    vm();
+                });
+            });
+        });
+
+        $( "li.dbt" ).click(function databases() {
+            $( "p.titlename" ).html( "<p>Databases(SQL)</p>");
+            $( "p.adbuttons" ).html("<a href = 'dbcreate.html'><button id = 'add' class='addbut'>+Add</button></a> <a href = 'dbdelete.html'><button id = 'add' class='delbut'>-Delete</button></a>");
+            $( "p.tab1name" ).html( "<p>Name</p>");
+            $( "p.tab2name" ).html( "<p>Server</p>");
+            $( "p.tab3name" ).html( "<p></p>");
+            $( "p.item2" ).html( "<p></p>");
+            $("ul.item1").html("<p></p>")
+            $( "form.form1").html("<p></p>");
+
+            if (totalDb>0){
+                for (i=0;i<totalDb;i++)
+                   $("ul.item1").append($("<li class = items>").text(dbArray[i]));
+            }
+            else{
+                $("ul.item1").html("<p></p>")
+            };
+
+            $("button.addbut").click(function(){
+                $( "p.adbuttons" ).html("<button id = 'add' class='backbutton'>Back</button>");
+                $( "p.tab1name").html("<form><p>Name<input type = 'text' name = 'dbname' id= 'adddbname'></p></form><br><button input type = 'submit' id = 'add2' class='create'>Create</button>");
+                $( "p.tab2name" ).html( "<p></p>");
+                $( "ul.item1").html("<p></p>");
+
+                $("button.create").click(function(){
+                    let typeddb = $('#adddbname').val();
+                    if (typeddb.length != 0 && typeddb.length <= 12){
+                        if (totalDb != 0){
+                            for (i=0;i<totalDb;i++){
+                                //check if duplicate
+                                if(typeddb == dbArray[i]){
+                                    console.log("this is named the same as another db");
+                                    errorname();
+                                    return;
+                                }
+                            }
+                            totalDb++;
+                            totalItems++;
+                            dbArray.push(typeddb);
+                            totalArray.push(typeddb);
+                            console.log("newly created db is: "+typeddb);
+                            console.log("number of total db is now: "+totalDb);
+                            //run script
+                            databases();
+                        }
+                        else{
+                            totalDb++;
+                            totalItems++;
+                            dbArray.push(typeddb);
+                            totalArray.push(typeddb);
+                            console.log("newly created db is: "+typeddb);
+                            console.log("number of total db is now: "+totalDb);
+                            //run script
+                            databases();
+                        }
+                    }
+                    else if(typeddb.length>12){
+                        errorlength();
+                        return;
+                    }
+                    else{
+                        errorblank();
+                        return;
+                    }
+                });
+                $("button.backbutton").click(function(){
+                    databases();
+                });
+            });
+            
+            
+            $("button.delbut").click(function(){
+                $( "p.adbuttons" ).html("<button id = 'add' class='backbutton'>Back</button>");
+                $( "p.tab1name").html("<form><p>Choose a Database(SQL)</p><select id = 'alldbs'><option val = 'first'>Select</option></select></form><br><br><button input type = 'submit' id = 'add2' class='delete'>Delete</button>");
+                $( "p.tab2name" ).html( "<p></p>");
+                $( "ul.item1").html("<p></p>");
+
+                var dbs1 = $('#alldbs');
+                $.each(dbArray, function(val, text) {
+                    dbs1.append($('<option></option>').val(val).html(text));
+                });
+
+                var select = ($("#alldbs option:first").text());
+                var selector = $('#alldbs').find(":selected").val();
+
+                $("button.delete").click(function(){
+                    selector = $('#alldbs').find(":selected").val();
+                    if (selector == select){
+                        console.log("None selected");
+                        errornone();
+                        return;
+                    }
+                    else{
+                        console.log($('#alldbs option:selected').val());
+                        console.log($('#alldbs option:selected').text());
+                        totalDb--;
+                        totalItems--;
+                        var indexedDb = dbArray.indexOf(($('#alldbs option:selected').text()));
+                        dbArray.splice(indexedDb,1);
+                        var indexedTotal = totalArray.indexOf(($('#alldbs option:selected').text()));
+                        totalArray.splice(indexedDb,1);
+                        console.log("deleted db is: "+($('#alldbs option:selected').text()));
+                        console.log("number of total db is now: "+totalDb); 
+                        //run script
+                        databases();
+                    }
+                });
+                $("button.backbutton").click(function(){
+                    databases();
+                });
+            });
+
+        });
+
+        $( "li.bst" ).click(function storage() {
+            $( "p.titlename" ).html( "<p>Blob Storages</p>");
+            $( "p.adbuttons" ).html("<a href = 'bscreate.html'><button id = 'add' class='addbut'>+Add</button></a> <a href = 'bsdelete.html'><button id = 'add' class='delbut'>-Delete</button></a>");
+            $( "p.tab1name" ).html( "<p>Name</p>");
+            $( "p.tab2name" ).html( "<p>Location</p>");
+            $( "p.tab3name" ).html( "<p></p>");
+            $( "p.item2" ).html( "<p></p>");
+            $("ul.item1").html("<p></p>")
+            $( "form.form1").html("<p></p>");
+
+            if (totalBs>0){
+                for (i=0;i<totalBs;i++)
+                   $("ul.item1").append($("<li class = items>").text(bsArray[i]));
+            }
+            else{
+                $("ul.item1").html("<p></p>")
+            };
+
+            $("button.addbut").click(function(){
+                $( "p.adbuttons" ).html("<button id = 'add' class='backbutton'>Back</button>");
+                $( "p.tab1name").html("<form><p>Name<input type = 'text' name = 'bsname' id= 'addbsname'></p></form><br><button input type = 'submit' id = 'add2' class='create'>Create</button>");
+                $( "p.tab2name" ).html( "<p></p>");
+                $( "ul.item1").html("<p></p>");
+
+                $("button.create").click(function(){
+                    let typedbs = $('#addbsname').val();
+                    if (typedbs.length != 0 && typedbs.length <= 12){
+                        if (totalBs != 0){
+                            for (i=0;i<totalBs;i++){
+                                //check if duplicate
+                                if(typedbs == bsArray[i]){
+                                    console.log("this is named the same as another bs");
+                                    errorname();
+                                    return;
+                                }
+                            }
+                            totalBs++;
+                            totalItems++;
+                            bsArray.push(typedbs);
+                            totalArray.push(typedbs)
+                            console.log("newly created bs is: "+typedbs);
+                            console.log("number of total bs is now: "+totalBs);
+                            //run script
+                            storage();
+                        }
+                        else{
+                            totalBs++;
+                            totalItems++;
+                            bsArray.push(typedbs);
+                            totalArray.push(typedbs);
+                            console.log("newly created bs is: "+typedbs);
+                            console.log("number of total bs is now: "+totalBs);
+                            //run script
+                            storage();
+                        }
+                    }
+                    else if(typedbs.length>12){
+                        errorlength();
+                        return;
+                    }
+                    else{
+                        errorblank();
+                        return;
+                    }
+                });
+                $("button.backbutton").click(function(){
+                    storage();
+                });
+            });
+            
+            
+            $("button.delbut").click(function(){
+                $( "p.adbuttons" ).html("<button id = 'add' class='backbutton'>Back</button>");
+                $( "p.tab1name").html("<form><p>Choose a Blob Storage</p><select id = 'allbss'><option val = 'first'>Select</option></select></form><br><br><button input type = 'submit' id = 'add2' class='delete'>Delete</button>");
+                $( "p.tab2name" ).html("<p></p>");
+                $( "ul.item1").html("<p></p>");
+                var bss1 = $('#allbss');
+                $.each(bsArray, function(val, text) {
+                    bss1.append($('<option></option>').val(val).html(text));
+                });
+
+                var select = ($("#allbss option:first").text());
+                var selector = $('#allbss').find(":selected").val();
+
+                $("button.delete").click(function(){
+                    selector = $('#allbss').find(":selected").val();
+                    if (selector == select){
+                        console.log("None selected");
+                        errornone();
+                        return;
+                    }
+                    else{
+                        console.log($('#allbss option:selected').val());
+                        console.log($('#allbss option:selected').text());
+                        totalBs--;
+                        totalItems--;
+                        var indexedBs = bsArray.indexOf(($('#allbss option:selected').text()));
+                        bsArray.splice(indexedBs);
+                        var indexedTotal = totalArray.indexOf(($('#allbss option:selected').text()));
+                        totalArray.splice(indexedBs);
+                        console.log("deleted bs is: "+($('#allbss option:selected').text()));
+                        console.log("number of total bs is now: "+totalBs); 
+                        //run script 
+                        storage();
+                    }
+                });
+                $("button.backbutton").click(function(){
+                    storage();
+                });
+            });
+
+        });
+
+        $( "li.vnt" ).click(function vn() {
+            $( "p.titlename" ).html( "<p>Virtual Networks</p>");
+            $( "p.adbuttons" ).html("<a href = 'vncreate.html'><button id = 'add' class='addbut'>+Add</button></a> <a href = 'vndelete.html'><button id = 'add' class='delbut'>-Delete</button></a>");
+            $( "p.tab1name" ).html( "<p>Name</p>");
+            $( "p.tab2name" ).html( "<p>Subnets</p>");
+            $( "p.tab3name" ).html( "<p>Security Groups</p>");
+            $("ul.item1").html("<p></p>");
+            $( "p.item2" ).html( "<p></p>");
+            $( "form.form1").html("<p></p>");
+
+            if (totalVn>0){
+                for (i=0;i<totalVn;i++)
+                   $("ul.item1").append($("<li class = items>").text(vnArray[i]));
+            }
+            else{
+                $("ul.item1").html("<p></p>")
+            };
+
+            $("button.addbut").click(function(){
+                $( "p.adbuttons" ).html("<button id = 'add' class='backbutton'>Back</button>");
+                $( "p.tab1name").html("<form><p>Name<input type = 'text' name = 'vnname' id= 'addvnname'></p></form><br><button input type = 'submit' id = 'add2' class='create'>Create</button>");
+                $( "p.tab2name" ).html( "<p></p>");
+                $( "p.tab3name" ).html( "<p></p>");
+                $( "ul.item1").html("<p></p>");
+
+                $("button.create").click(function(){
+                    let typedvn = $('#addvnname').val();
+                    if (typedvn.length != 0 && typedvn.length <= 12){
+                        if (totalVn != 0){
+                            for (i=0;i<totalVn;i++){
+                                //check if duplicate
+                                if(typedvn == vnArray[i]){
+                                    console.log("this is named the same as another vn");
+                                    errorname();
+                                    return;
+                                }
+                            }
+                            totalVn++;
+                            totalItems++;
+                            vnArray.push(typedvn);
+                            totalArray.push(typedvn);
+                            console.log("newly created vn is: "+typedvn);
+                            console.log("number of total vn is now: "+totalVn);
+                            //run script
+                            vn();
+                        }
+                        else{
+                            totalVn++;
+                            totalItems++;
+                            vnArray.push(typedvn);
+                            totalArray.push(typedvn);
+                            console.log("newly created vn is: "+typedvn);
+                            console.log("number of total vn is now: "+totalVn);
+                            //run script
+                            vn();
+                        }
+                    }
+                    else if(typedvn.length>12){
+                        errorlength();
+                        return;
+                    }
+                    else{
+                        errorblank();
+                        return;
+                    }
+                });
+
+                $("button.backbutton").click(function(){
+                    vn();
+                });
+            });
+            
+            
+            $("button.delbut").click(function(){
+                $( "p.adbuttons" ).html("<button id = 'add' class='backbutton'>Back</button>");
+                $( "p.tab1name").html("<form><p>Choose a Virtual Network</p><select id = 'allvns'><option val = 'first'>Select</option></select></form><br><br><button input type = 'submit' id = 'add2' class='delete'>Delete</button>");
+                $( "p.tab2name" ).html("<p></p>");
+                $( "p.tab3name" ).html( "<p></p>");
+                $( "ul.item1").html("<p></p>");
+
+                var vns1 = $('#allvns');
+                $.each(vnArray, function(val, text) {
+                    vns1.append($('<option></option>').val(val).html(text));
+                });
+
+                var select = ($("#allvns option:first").text());
+                var selector = $('#allvns').find(":selected").val();
+
+                $("button.delete").click(function(){
+                    selector = $('#allvns').find(":selected").val();
+                    if (selector == select){
+                        console.log("None selected");
+                        errornone();
+                        return;
+                    }
+                    else{
+                        console.log($('#allvns option:selected').val());
+                        console.log($('#allvns option:selected').text());
+                        totalVn--;
+                        totalItems--;
+                        var indexedVn = vnArray.indexOf(($('#allvns option:selected').text()));
+                        vnArray.splice(indexedVn);
+                        var indexedTotal = totalArray.indexOf(($('#allvns option:selected').text()));
+                        totalArray.splice(indexedVn);
+                        console.log("deleted vn is: "+($('#allvns option:selected').text()));
+                        console.log("number of total vn is now: "+totalVn);
+                        //run script  
+                        vn();
+                    }
+                });
+                $("button.backbutton").click(function(){
+                    vn();
+                });
+            });
+
+        });
+
+        $( "li.apet" ).click(function appe() {
+            $( "p.titlename" ).html( "<p>App Environments</p>");
+            $( "p.adbuttons" ).html("<a href = 'appecreate.html'><button id = 'add' class='addbut'>+Add</button></a> <a href = 'appedelete.html'><button id = 'add' class='delbut'>-Delete</button></a>");
+            $( "p.tab1name" ).html( "<p>Name</p>");
+            $( "p.tab2name" ).html( "<p>Service Plan</p>");
+            $( "p.tab3name" ).html( "<p>Location</p>");
+            $( "p.item2" ).html( "<p></p>");
+            $("ul.item1").html("<p></p>");
+            $( "form.form1").html("<p></p>");
+
+            if (totalAppe>0){
+                for (i=0;i<totalAppe;i++)
+                   $("ul.item1").append($("<li class = items>").text(appeArray[i]));
+            }
+            else{
+                $("ul.item1").html("<p></p>")
+            };
+
+            $("button.addbut").click(function(){
+                $( "p.adbuttons" ).html("<button id = 'add' class='backbutton'>Back</button>");
+                $( "p.tab1name").html("<form><p>Name<input type = 'text' name = 'appename' id= 'addappename'></p></form><br><button input type = 'submit' id = 'add2' class='create'>Create</button>");
+                $( "p.tab2name" ).html( "<p></p>");
+                $( "p.tab3name" ).html( "<p></p>");
+                $( "ul.item1").html("<p></p>");
+
+                $("button.create").click(function(){
+                    let typedappe = $('#addappename').val();
+                    if (typedappe.length != 0 && typedappe.length <= 12){
+                        if (totalAppe != 0){
+                            for (i=0;i<totalAppe;i++){
+                                //check if duplicate
+                                if(typedappe == appeArray[i]){
+                                    console.log("this is named the same as another appe");
+                                    errorname();
+                                    return;
+                                }
+                            }
+                            totalAppe++;
+                            totalItems++;
+                            appeArray.push(typedappe);
+                            totalArray.push(typedappe);
+                            console.log("newly created appe is: "+typedappe);
+                            console.log("number of total appe is now: "+totalAppe);
+                            //run script
+                            appe();
+                        }
+                        else{
+                            totalAppe++;
+                            totalItems++;
+                            appeArray.push(typedappe);
+                            totalArray.push(typedappe);
+                            console.log("newly created appe is: "+typedappe);
+                            console.log("number of total appe is now: "+totalAppe);
+                            //run script
+                            appe();
+                        }
+                    }
+                    else if(typedappe.length>12){
+                        errorlength();
+                        return;
+                    }
+                    else{
+                        errorblank();
+                        return;
+                    }
+                });
+                $("button.backbutton").click(function(){
+                    appe();
+                });
+            });
+            
+            
+            $("button.delbut").click(function(){
+                $( "p.adbuttons" ).html("<button id = 'add' class='backbutton'>Back</button>");
+                $( "p.tab1name").html("<form><p>Choose an App Environment</p><select id = 'allappes'><option val = 'first'>Select</option></select></form><br><br><button input type = 'submit' id = 'add2' class='delete'>Delete</button>");
+                $( "p.tab2name" ).html("<p></p>");
+                $( "p.tab3name" ).html( "<p></p>");
+                $( "ul.item1").html("<p></p>");
+
+                var appes1 = $('#allappes');
+                $.each(appeArray, function(val, text) {
+                    appes1.append($('<option></option>').val(val).html(text));
+                });
+
+                var select = ($("#allappes option:first").text());
+                var selector = $('#allappes').find(":selected").val();
+
+                $("button.delete").click(function(){
+                    selector = $('#allappes').find(":selected").val();
+                    if (selector == select){
+                        console.log("None selected");
+                        errornone();
+                        return;
+                    }
+                    else{
+                        console.log($('#allappes option:selected').val());
+                        console.log($('#allappes option:selected').text());
+                        totalAppe--;
+                        totalItems--;
+                        var indexedAppe = appeArray.indexOf(($('#allappes option:selected').text()));
+                        appeArray.splice(indexedAppe);
+                        var indexedTotal = totalArray.indexOf(($('#allappes option:selected').text()));
+                        totalArray.splice(indexedAppe);
+                        console.log("deleted appe is: "+($('#allappes option:selected').text()));
+                        console.log("number of total appe is now: "+totalAppe);    
+                        appe();
+                        //run script
+                    }
+                });
+                $("button.backbutton").click(function(){
+                    appe();
+                });
+            });
+
+        });
+
+    </script>
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" 
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" 
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" 
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" 
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
