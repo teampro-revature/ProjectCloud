@@ -45,8 +45,8 @@
     <main>
         <div class = "row2">
             <h4>To get started, please <button id="auth" onclick="login()">log in</button>
-                <pre id="json"></pre> or 
-                <button id="callApiButton" class="hidden" onclick="parent.location='main.html'">welcome</button>
+                <pre id="json"></pre>
+                <button id="callMain" class="hidden" onclick="parent.location='main.html'">welcome</button>
         </div>
     </main
 
@@ -55,8 +55,8 @@
   <script class="pre">
     // The current application coordinates were pre-registered in a B2C tenant.
     var appConfig = {
-      b2cScopes: ["https://fabrikamb2c.onmicrosoft.com/helloapi/demo.read"],
-      webApi: "https://fabrikamb2chello.azurewebsites.net/hello"
+      b2cScopes: ["https://dreamcloudss.onmicrosoft.com/hello/demo.read"],
+       webApi: 'http://localhost:5000/hello',
     };
   </script>
   <pre class="response"></pre>
@@ -64,8 +64,8 @@
   <script class="pre">
     // The current application coordinates were pre-registered in a B2C tenant.
     var appConfig = {
-      b2cScopes: ["https://fabrikamb2c.onmicrosoft.com/helloapi/demo.read"],
-      webApi: "https://fabrikamb2chello.azurewebsites.net/hello"
+      b2cScopes: ["https://dreamcloudss.onmicrosoft.com/hello/demo.read"],
+       webApi: 'http://localhost:5000/hello',
     };
   </script>
 
@@ -122,7 +122,7 @@
       label.innerText = "Hello " + userName;
 
     }
-    function callApi() {
+   /* function callApi() {
       var tokenRequest = {
         scopes: appConfig.b2cScopes
       }
@@ -157,7 +157,7 @@
     }
     function logMessage(s) {
       document.body.querySelector('.response').appendChild(document.createTextNode('\n' + s));
-    }
+    }*/
   </script>
   <script src="./server.js"></script>
 </body>
