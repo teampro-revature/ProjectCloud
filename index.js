@@ -19,51 +19,51 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 app.get('/',function(req,res) {
-  res.sendFile(path.join(__dirname + '/view + '/index.html'));
+  res.sendFile(path.join(__dirname + '/index.html'));
 });
 
 app.get('/main',function(req,res) {
-  res.sendFile(path.join(__dirname + '/view'+ '/main.html'));
+  res.sendFile(path.join(__dirname '+ '/main.html'));
 });
 
 app.get('/vmcreate',function(req,res) {
-  res.sendFile(path.join(__dirname + '/view'+ '/vmcreate.html'));
+  res.sendFile(path.join(__dirname '+ '/vmcreate.html'));
 });
 
 app.get('/dbcreate',function(req,res) {
-  res.sendFile(path.join(__dirname + '/view'+ '/dbcreate.html'));
+  res.sendFile(path.join(__dirname '+ '/dbcreate.html'));
 });
 
 app.get('/bscreate',function(req,res) {
-  res.sendFile(path.join(__dirname + '/view'+ '/vmcreate.html'));
+  res.sendFile(path.join(__dirname '+ '/bscreate.html'));
 });
 
 app.get('/vncreate',function(req,res) {
-  res.sendFile(path.join(__dirname + '/view'+ '/dbcreate.html'));
+  res.sendFile(path.join(__dirname '+ '/vncreate.html'));
 });
 
 app.get('/appecreate',function(req,res) {
-  res.sendFile(path.join(__dirname + '/view'+ '/vmcreate.html'));
+  res.sendFile(path.join(__dirname + '/appcreate.html'));
 });
 
 app.get('/vmdelete',function(req,res) {
-  res.sendFile(path.join(__dirname + '/view'+ '/dbcreate.html'));
+  res.sendFile(path.join(__dirname + '/vmcdelete.html'));
 });
 
 app.get('/dbdelete',function(req,res) {
-  res.sendFile(path.join(__dirname + '/view'+ '/dbcreate.html'));
+  res.sendFile(path.join(__dirname'+ '/dbcreate.html'));
 });
 
 app.get('/bsdelete',function(req,res) {
-  res.sendFile(path.join(__dirname + '/view'+ '/dbcreate.html'));
+  res.sendFile(path.join(__dirname +'/bsdelete.html'));
 });
 
 app.get('/vndelete',function(req,res) {
-  res.sendFile(path.join(__dirname + '/view'+ '/dbcreate.html'));
+  res.sendFile(path.join(__dirname + '/vndelete.html'));
 });
 
 app.get('/appedelete',function(req,res) {
-  res.sendFile(path.join(__dirname + '/view'+ '/dbcreate.html'));
+  res.sendFile(path.join(__dirname '+ '/appdelete.html'));
 });
 
 /*app.post('/main', function(req, res, next) {
