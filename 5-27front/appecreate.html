@@ -56,17 +56,16 @@
             </div>
             <div class = "col-7">
                 <nav id="main">
-                    <p id="titlebox" class="titlename">Delete an App Environment</p>
+                    <p id="titlebox" class="titlename">Create an App Environment</p>
                     <p class = "adbuttons"><a href = "/main"><button id = 'add' class='backbutton'>Back</button></a></p>
                 </nav>
                 <nav id="cont_r">
                     <div class="row">
                         <div class="col-4">
                             <p class = "tab1name">
-                            <form method= 'POST' action="/appedelete" class = "form1">
-                                <p>Type the App Environment</p>
-                                <p>Name<input type = 'text' name = 'appenamed' id= 'addappenamed'></p>
-                                <button input type = 'submit' id = 'add2' class='delete'>Delete</button>
+                            <form method= 'POST' action="/appecreate" class = "form1">
+                                <p>Name<input type = 'text' name = 'appename' id= 'addappename'></p>
+                                <a href = "/main"><button input type = 'submit' id = 'add2' class='create'>Create</button></a>
                             </form>
                             </p>
                         </div>
@@ -166,9 +165,8 @@
             $( "p.tab2name" ).html( "<p>Location</p>");
             $( "p.tab3name" ).html( "<p></p>");
             $( "p.item2" ).html( "<p></p>");
-            $("ul.item1").html("<p></p>")
+            $("ul.item1").html("<p></p>");
             $( "form.form1").html("<p></p>");
-
             if (totalVm>0){
                 for (i=0;i<totalVm;i++)
                    $("ul.item1").append($("<li class = items>").text(vmArray[i]));
