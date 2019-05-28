@@ -122,7 +122,7 @@ app.post('/vmcreate',function(req,res) {
         console.log("number of total vm is now: "+totalVm);
         // run script
         res.redirect('/main');
-        shell.exec(`${path.join(__dirname, './test.sh')} ${typedvm}`);
+        shell.exec(`${path.join(__dirname, './createVm.sh')} ${typedvm}`);
     }
     else{
         totalVm++;
@@ -133,7 +133,7 @@ app.post('/vmcreate',function(req,res) {
         console.log("number of total vm is now: "+totalVm);
         //run script
         res.redirect('/main');
-        shell.exec(`${path.join(__dirname, './test.sh')} ${typedvm}`);
+        shell.exec(`${path.join(__dirname, './createVm.sh')} ${typedvm}`);
     }
 }
 else if(typedvm.length > 12){
@@ -151,7 +151,8 @@ else{
 });
 
 app.post('/dbcreate',function(req,res) {
-  const dbname = req.body.dbname;
+  const typeddb = req.body.dbname;
+  const servername = req.body.servername;
   if (typeddb.length != 0 && typeddb.length <= 12){
     if (totalDb != 0){
         for (i=0;i<totalDb;i++){
@@ -169,7 +170,7 @@ app.post('/dbcreate',function(req,res) {
         console.log("newly created db is: "+typeddb);
         console.log("number of total db is now: "+totalDb);
         res.redirect('/main');
-        shell.exec(`${path.join(__dirname, './test.sh')} ${typeddb}`);
+        shell.exec(`${path.join(__dirname, './createSQLserver.sh')} ${typeddb} ${servername}`);
     }
     else{
         totalDb++;
@@ -179,7 +180,7 @@ app.post('/dbcreate',function(req,res) {
         console.log("newly created db is: "+typeddb);
         console.log("number of total db is now: "+totalDb);
         res.redirect('/main');
-        shell.exec(`${path.join(__dirname, './test.sh')} ${typeddb}`);
+        shell.exec(`${path.join(__dirname, './createSQLserver.sh')} ${typeddb} ${servername}`);
     }
 }
 else if(typeddb.length>12){
@@ -193,7 +194,7 @@ else{
 });
 
 app.post('/bscreate',function(req,res) {
-  const bsname = req.body.bsname;
+  const typedbs = req.body.bsname;
   if (typedbs.length != 0 && typedbs.length <= 12){
     if (totalBs != 0){
         for (i=0;i<totalBs;i++){
@@ -211,7 +212,7 @@ app.post('/bscreate',function(req,res) {
         console.log("newly created bs is: "+typedbs);
         console.log("number of total bs is now: "+totalBs);
         res.redirect('/main');
-        shell.exec(`${path.join(__dirname, './test.sh')} ${typedbs}`);
+        shell.exec(`${path.join(__dirname, './createBlob.sh')} ${typedbs}`);
     }
     else{
         totalBs++;
@@ -221,7 +222,7 @@ app.post('/bscreate',function(req,res) {
         console.log("newly created bs is: "+typedbs);
         console.log("number of total bs is now: "+totalBs);
         res.redirect('/main');
-        shell.exec(`${path.join(__dirname, './test.sh')} ${typedbs}`);
+        shell.exec(`${path.join(__dirname, './createBlob.sh')} ${typedbs}`);
     }
 }
 else if(typedbs.length>12){
@@ -235,7 +236,7 @@ else{
 });
 
 app.post('/vncreate',function(req,res) {
-  const vnname = req.body.vnname;
+  const typedvn = req.body.vnname;
   if (typedvn.length != 0 && typedvn.length <= 12){
     if (totalVn != 0){
         for (i=0;i<totalVn;i++){
@@ -253,7 +254,7 @@ app.post('/vncreate',function(req,res) {
         console.log("newly created vn is: "+typedvn);
         console.log("number of total vn is now: "+totalVn);
         res.redirect('/main');
-        shell.exec(`${path.join(__dirname, './test.sh')} ${typedvn}`);
+        shell.exec(`${path.join(__dirname, './createNt.sh')} ${typedvn}`);
     }
     else{
         totalVn++;
@@ -263,7 +264,7 @@ app.post('/vncreate',function(req,res) {
         console.log("newly created vn is: "+typedvn);
         console.log("number of total vn is now: "+totalVn);
         res.redirect('/main');
-        shell.exec(`${path.join(__dirname, './test.sh')} ${typedvn}`);
+        shell.exec(`${path.join(__dirname, './createNt.sh')} ${typedvn}`);
     }
 }
 else if(typedvn.length>12){
@@ -277,7 +278,9 @@ else{
 });
 
 app.post('/appecreate',function(req,res) {
-  const appename = req.body.appename;
+  const typedappe = req.body.appename;
+  const subnetname = req.body.subnetname;
+  const nsgname = req.body.nsgname;
   if (typedappe.length != 0 && typedappe.length <= 12){
     if (totalAppe != 0){
         for (i=0;i<totalAppe;i++){
@@ -295,7 +298,7 @@ app.post('/appecreate',function(req,res) {
         console.log("newly created appe is: "+typedappe);
         console.log("number of total appe is now: "+totalAppe);
         res.redirect('/main');
-        shell.exec(`${path.join(__dirname, './test.sh')} ${typedappe}`);
+        shell.exec(`${path.join(__dirname, './createApp.sh')} ${typedappe} ${subnetname} ${nsgname}`);
     }
     else{
         totalAppe++;
@@ -305,7 +308,7 @@ app.post('/appecreate',function(req,res) {
         console.log("newly created appe is: "+typedappe);
         console.log("number of total appe is now: "+totalAppe);
         res.redirect('/main');
-        shell.exec(`${path.join(__dirname, './test.sh')} ${typedappe}`);
+        shell.exec(`${path.join(__dirname, './createApp.sh')} ${typedappe} ${subnetname} ${nsgname}`);
     }
 }
 else if(typedappe.length>12){
@@ -329,7 +332,7 @@ app.post('/vmdelete',function(req,res) {
       totalItems--;
       console.log("number of total vm is now: "+totalVm);
       res.redirect('/main');
-      shell.exec(`${path.join(__dirname, '../test.sh')} ${req.body.typedvm}`);
+      shell.exec(`${path.join(__dirname, './deleteVm.sh')} ${req.body.typedvm}`);
   }
   res.redirect('/main');
   //errornone();
@@ -344,7 +347,7 @@ app.post('/dbdelete',function(req,res) {
       totalItems--;
       console.log("number of total db is now: "+totalDb);
       res.redirect('/main');
-      shell.exec(`${path.join(__dirname, '../test.sh')} ${req.body.typeddb}`);
+      shell.exec(`${path.join(__dirname, './deleteSQLserver.sh')} ${req.body.typeddb}`);
   }
   res.redirect('/main');
   //errornone();
@@ -359,7 +362,7 @@ app.post('/bsdelete',function(req,res) {
       totalItems--;
       console.log("number of total bs is now: "+totalBs);
       res.redirect('/main');
-      shell.exec(`${path.join(__dirname, '../test.sh')} ${req.body.typedbs}`);
+      shell.exec(`${path.join(__dirname, './deleteBlob.sh')} ${req.body.typedbs}`);
   }
   res.redirect('/main');
   //errornone();
@@ -374,7 +377,7 @@ app.post('/vndelete',function(req,res) {
       totalItems--;
       console.log("number of total vn is now: "+totalVn);
       res.redirect('/main');
-      shell.exec(`${path.join(__dirname, '../test.sh')} ${req.body.typedvn}`);
+      shell.exec(`${path.join(__dirname, './DeleteNt.sh')} ${req.body.typedvn}`);
   }
   res.redirect('/main');
   //errornone();
@@ -389,7 +392,7 @@ app.post('/appedelete',function(req,res) {
       totalItems--;
       console.log("number of total appe is now: "+totalAppe);
       res.redirect('/main');
-      shell.exec(`${path.join(__dirname, '../test.sh')} ${req.body.typedappe}`);
+      shell.exec(`${path.join(__dirname, './deleteApp.sh')} ${req.body.typedappe}`);
   }
   res.redirect('/main');
   //errornone();
