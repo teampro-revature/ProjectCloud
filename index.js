@@ -405,7 +405,7 @@ app.post('/', function(req, res) {
   });
 });*/
 
-const port = process.env.PORT || 6420;
+const port = process.env.PORT || 8080;
 app.listen(port);
 
 console.log("Server running at http://localhost:%d", port);
