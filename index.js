@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 app.get('/',function(req,res) {
-  res.sendFile(path.join(__dirname + 'index.html'));
+  res.sendFile(path.join(__dirname + '/view + '/index.html'));
 });
 
 app.get('/main',function(req,res) {
