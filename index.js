@@ -71,19 +71,19 @@ app.get('/appedelete',function(req,res) {
   res.sendFile(path.join(__dirname + '/view'+ '/main.html'));
 });*/
 function errorname(){
-  $( "p.item2" ).html("<p class = 'item2' id='error'>ERROR: DUPLICATE NAME</p>");
+  //$( "p.item2" ).html("<p class = 'item2' id='error'>ERROR: DUPLICATE NAME</p>");
 }
 
 function errorblank(){
-  $( "p.item2" ).html("<p class = 'item2' id='error'>ERROR: FIELD CANNOT BE BLANK</p>");
+  //$( "p.item2" ).html("<p class = 'item2' id='error'>ERROR: FIELD CANNOT BE BLANK</p>");
 }
 
 function errornone(){
-  $( "p.item2" ).html("<p class = 'item2' id='error'>ERROR: NO ELEMENT SELECTED</p>");
+  //$( "p.item2" ).html("<p class = 'item2' id='error'>ERROR: NO ELEMENT SELECTED</p>");
 }
 
 function errorlength(){
-  $( "p.item2" ).html("<p class = 'item2' id='error'>ERROR: TOO MANY CHARACTERS</p>");
+  //$( "p.item2" ).html("<p class = 'item2' id='error'>ERROR: TOO MANY CHARACTERS</p>");
 }
 
 
@@ -321,38 +321,78 @@ else{
 
 //deletes
 app.post('/vmdelete',function(req,res) {
-  const typedvm = req.body.typedvm;
+  const typedvm = req.body.vmnamed;
   console.log(typedvm);
+  for (i=0;i<totalVm;i++){
+    if (typedvm == vmArray[i])
+      totalVm--;
+      totalItems--;
+      console.log("number of total vm is now: "+totalVm);
+      res.redirect('/main');
+      shell.exec(`${path.join(__dirname, '../test.sh')} ${req.body.typedvm}`);
+  }
   res.redirect('/main');
-  shell.exec(`${path.join(__dirname, '../test.sh')} ${req.body.typedvm} ${req.body.typedvm}`) ;
+  //errornone();
 });
 
 app.post('/dbdelete',function(req,res) {
-  const dbname = req.body.dbname;
-  console.log(dbname);
+  const typeddb = req.body.dbnamed;
+  console.log(typeddb);
+  for (i=0;i<totalDb;i++){
+    if (typeddb == dbArray[i])
+      totalDb--;
+      totalItems--;
+      console.log("number of total db is now: "+totalDb);
+      res.redirect('/main');
+      shell.exec(`${path.join(__dirname, '../test.sh')} ${req.body.typeddb}`);
+  }
   res.redirect('/main');
-  shell.exec(`${path.join(__dirname, '../test.sh')} ${req.body.dbname} ${req.body.dbName}`) ;
+  //errornone();
 });
 
 app.post('/bsdelete',function(req,res) {
-  const bsname = req.body.bsname;
-  console.log(bsname);
+  const typebsm = req.body.bsnamed;
+  console.log(typedbs);
+  for (i=0;i<totalBs;i++){
+    if (typedbs == bsArray[i])
+      totalBs--;
+      totalItems--;
+      console.log("number of total bs is now: "+totalBs);
+      res.redirect('/main');
+      shell.exec(`${path.join(__dirname, '../test.sh')} ${req.body.typedbs}`);
+  }
   res.redirect('/main');
-  shell.exec(`${path.join(__dirname, '../test.sh')} ${req.body.bsname} ${req.body.bsName}`) ;
+  //errornone();
 });
 
 app.post('/vndelete',function(req,res) {
-  const vnname = req.body.vnname;
-  console.log(vnname);
+  const typedvn = req.body.vnnamed;
+  console.log(typedvn);
+  for (i=0;i<totalVn;i++){
+    if (typedvn == vnArray[i])
+      totalVn--;
+      totalItems--;
+      console.log("number of total vn is now: "+totalVn);
+      res.redirect('/main');
+      shell.exec(`${path.join(__dirname, '../test.sh')} ${req.body.typedvn}`);
+  }
   res.redirect('/main');
-  shell.exec(`${path.join(__dirname, '../test.sh')} ${req.body.vnname} ${req.body.vnName}`) ;
+  //errornone();
 });
 
 app.post('/appedelete',function(req,res) {
-  const appename = req.body.appename;
-  console.log(appename);
+  const typedappe = req.body.appenamed;
+  console.log(typedappe);
+  for (i=0;i<totalAppe;i++){
+    if (typedappe == appeArray[i])
+      totalAppe--;
+      totalItems--;
+      console.log("number of total appe is now: "+totalAppe);
+      res.redirect('/main');
+      shell.exec(`${path.join(__dirname, '../test.sh')} ${req.body.typedappe}`);
+  }
   res.redirect('/main');
-  shell.exec(`${path.join(__dirname, '../test.sh')} ${req.body.appename} ${req.body.appename}`) ;
+  //errornone();
 });
 /*function scripting(){
   shell.echo('Script working');
